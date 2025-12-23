@@ -27,26 +27,28 @@ pipeline {
 
     stage('Terraform Init') {
       steps {
-        sh '''
-          terraform init
-        '''
+        dir('cloudnotes-infra') {
+          sh 'terraform init'
+        }
       }
     }
 
     stage('Terraform Validate') {
       steps {
-        sh '''
-          terraform fmt -recursive
-          terraform validate
-        '''
+        dir('cloudnotes-infra') {
+          sh '''
+            terraform fmt -recursive
+            terraform validate
+          '''
+        }
       }
     }
 
     stage('Terraform Plan') {
       steps {
-        sh '''
-          terraform plan -out=tfplan
-        '''
+        dir('cloudnotes-infra') {
+          sh 'terraform plan -out=tfplan'
+        }
       }
     }
 
@@ -58,16 +60,16 @@ pipeline {
 
     stage('Terraform Apply') {
       steps {
-        sh '''
-          terraform apply -auto-approve tfplan
-        '''
+        dir('cloudnotes-infra') {
+          sh 'terraform apply -auto-approve tfplan'
+        }
       }
     }
   }
 
   post {
     always {
-      archiveArtifacts artifacts: 'tfplan', fingerprint: true
+      archiveArtifacts artifacts: 'cloudnotes-infra/tfplan', fingerprint: true
     }
   }
 }
