@@ -14,7 +14,7 @@ pipeline {
       }
     }
 
-    stage('Authenticate to GCP') {
+    /*stage('Authenticate to GCP') {
       steps {
         withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
           sh '''
@@ -23,7 +23,7 @@ pipeline {
           '''
         }
       }
-    }
+    }*/
 
     stage('Terraform Init') {
       steps {
