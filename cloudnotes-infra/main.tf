@@ -1,4 +1,4 @@
-module "network" {
+/*module "network" {
   source = "./network"
 
   region = var.region
@@ -16,6 +16,7 @@ module "gke" {
   region     = var.region
   network    = module.network.vpc_name
   subnetwork = module.network.subnet_name
+  zone       = "us-central1-a"
 }
 
 module "cloudsql" {
@@ -27,5 +28,4 @@ module "cloudsql" {
 module "iam" {
   source     = "./iam"
   project_id = var.project_id
-}
-
+}*/

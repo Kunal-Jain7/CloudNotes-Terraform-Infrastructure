@@ -25,10 +25,21 @@ pipeline {
       }
     }*/
 
+    stage('Removing Old files') {
+      steps {
+        dir('cloudnotes-infra') {
+          sh '''
+            rm -rf .terraform
+            rm -f tfplan
+          '''
+        }
+      }
+    }
+
     stage('Terraform Init') {
       steps {
         dir('cloudnotes-infra') {
-          sh 'terraform init -no-color'
+          sh 'terraform init -reconfigure -no-color'
         }
       }
     }
